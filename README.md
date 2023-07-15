@@ -21,6 +21,23 @@ The Student Management System provides essential CRUD (Create, Read, Update, Del
 - GPA Calculation: Automated calculation of student GPA for accurate evaluation.
 - User-friendly Interface: Intuitive and easy-to-use interface for administrators and users.
 
+## Project Walkthrough
+
+Here are some walkthrough gifs to demonstrate key functionalities of the Hospital Management System:
+
+### Switching Between Tabs
+![switch](https://github.com/PasanAbeysekara/Hospital-Management-System/assets/69195287/bf7b74ea-6b25-49d8-bd3b-a646382df7d5)
+
+### Add Doctor
+![add-stud](https://github.com/PasanAbeysekara/Hospital-Management-System/assets/69195287/c22172b5-2d12-4cf7-946f-e41a824a13a6)
+
+### Edit Patient
+![edit](https://github.com/PasanAbeysekara/Hospital-Management-System/assets/69195287/4707d19b-3527-474e-9fbf-1da96d836297)
+
+### Search by Name
+![search](https://github.com/PasanAbeysekara/Hospital-Management-System/assets/69195287/715f478d-593a-4782-971f-ce260d8f9d25)
+
+
 ## Technologies Used
 
 - WPF (Windows Presentation Foundation)
