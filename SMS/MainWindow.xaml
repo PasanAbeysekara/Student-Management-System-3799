@@ -1,0 +1,299 @@
+﻿<Window x:Class="SMS.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SMS"
+        xmlns:vm="clr-namespace:SMS.MVVM.ViewModels"
+        xmlns:icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        mc:Ignorable="d"
+         Height="700" Width="1080"
+        WindowStartupLocation="CenterScreen" WindowStyle="None"
+        AllowsTransparency="True" Background="Transparent"
+        x:Name="_window">
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+        <Style x:Key="DataGridRowStyle1" TargetType="{x:Type DataGridRow}">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Margin" Value="0 4 0 0"/>
+            <Setter Property="SnapsToDevicePixels" Value="true"/>
+            <Setter Property="Validation.ErrorTemplate" Value="{x:Null}"/>
+            <Setter Property="ValidationErrorTemplate">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <TextBlock Foreground="Red" Margin="2,0,0,0" Text="!" VerticalAlignment="Center"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type DataGridRow}">
+                        <Border x:Name="DGR_Border" Padding="0 8" Background="{TemplateBinding Background}" BorderThickness="0" CornerRadius="5" SnapsToDevicePixels="True">
+                            <SelectiveScrollingGrid>
+                                <SelectiveScrollingGrid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </SelectiveScrollingGrid.ColumnDefinitions>
+                                <SelectiveScrollingGrid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </SelectiveScrollingGrid.RowDefinitions>
+                                <DataGridCellsPresenter Grid.Column="1" ItemsPanel="{TemplateBinding ItemsPanel}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                <DataGridDetailsPresenter Grid.Column="1" Grid.Row="1" SelectiveScrollingGrid.SelectiveScrollingOrientation="{Binding AreRowDetailsFrozen, ConverterParameter={x:Static SelectiveScrollingOrientation.Vertical}, Converter={x:Static DataGrid.RowDetailsScrollingConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" Visibility="{TemplateBinding DetailsVisibility}"/>
+                                <DataGridRowHeader Grid.RowSpan="2" SelectiveScrollingGrid.SelectiveScrollingOrientation="Vertical" Visibility="{Binding HeadersVisibility, ConverterParameter={x:Static DataGridHeadersVisibility.Row}, Converter={x:Static DataGrid.HeadersVisibilityConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
+                            </SelectiveScrollingGrid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#394867"/>
+                    <Setter Property="Foreground" Value="#ffffff"/>
+                </Trigger>
+
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#394867"/>
+                    <Setter Property="Foreground" Value="#ffffff"/>
+                </Trigger>
+
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsSelected" Value="True"/>
+                        <Condition Property="Selector.IsSelectionActive" Value="False"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="Background" Value="#dfdfdf"/>
+                </MultiTrigger>
+
+            </Style.Triggers>
+        </Style>
+
+    </Window.Resources>
+
+    <Window.DataContext>
+        <vm:MainWindowVM/>
+    </Window.DataContext>
+
+
+    <Border Background="#eff2f7" CornerRadius="30" MouseDown="Border_Mousedown" MouseLeftButtonDown="Border_MouseLeftButtondown">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!--Left Menu-->
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel  Margin="20 28 0 35"/>
+
+                <Border Grid.Row="1" Background="#212A3E" CornerRadius="0 50 30 0">
+                    <DockPanel>
+                        <Border Width="80" Height="80" Padding="3" Background="White" 
+                                CornerRadius="100" DockPanel.Dock="Top" HorizontalAlignment="Left" Margin="20 -30 0 0" >
+                            <Ellipse>
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="/Images/school.png"/>
+                                </Ellipse.Fill>
+                            </Ellipse>
+                        </Border>
+
+                        <!--Menu Titles-->
+                        <TextBlock Text="Student Data" Foreground="White" FontSize="22" FontWeight="SemiBold"
+                                       DockPanel.Dock="Top" TextAlignment="Center" Margin="5 25 0 10"/>
+                        <TextBlock Text="ABC College, Galle" Foreground="#d0bfff" FontSize="14" FontWeight="SemiBold"
+                                       DockPanel.Dock="Top" TextAlignment="Center"/>
+
+                        <!--Menu Separator-->
+                        <Separator Margin="25" DockPanel.Dock="Top" Height="1" Background="#7e5fde"/>
+
+                        <!--Menu Buttons-->
+                        <StackPanel DockPanel.Dock="Top">
+
+                            <TextBlock Text="Sort By" Foreground="#d0bfff" FontSize="14" FontWeight="SemiBold"
+                                       DockPanel.Dock="Top" TextAlignment="Center" Margin="0 0 0 10"/>
+
+
+                            <Button Style="{StaticResource menuButton}" Click="Fname_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <icon:PackIconMaterial Kind="Account"  Style="{StaticResource menuButtonIcon}"/>
+                                    <TextBlock Text="First Name"/>
+                                </StackPanel>
+                            </Button>
+
+                            <Button Style="{StaticResource menuButton}" Click="Lname_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <icon:PackIconMaterial Kind="Account" Style="{StaticResource menuButtonIcon}"/>
+                                    <TextBlock Text="Last Name"/>
+                                </StackPanel>
+                            </Button>
+
+                            <Button Style="{StaticResource menuButton}" Click="Gender_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <icon:PackIconMaterial Kind="GenderMaleFemale" Style="{StaticResource menuButtonIcon}"/>
+                                    <TextBlock Text="Gender"/>
+                                </StackPanel>
+                            </Button>
+
+                            <Button Style="{StaticResource menuButton}" Click="DOB_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <icon:PackIconMaterial Kind="Calendar" Style="{StaticResource menuButtonIcon}"/>
+                                    <TextBlock Text="Date of Birth"/>
+                                </StackPanel>
+                            </Button>
+
+                            <Button Style="{StaticResource menuButton}" Click="GPA_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <icon:PackIconMaterial Kind="TrendingUp" Style="{StaticResource menuButtonIcon}"/>
+                                    <TextBlock Text="GPA"/>
+                                </StackPanel>
+                            </Button>
+
+                            <Button Style="{StaticResource menuButton}" Click="Email_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <icon:PackIconMaterial Kind="Email" Style="{StaticResource menuButtonIcon}"/>
+                                    <TextBlock Text="Email"/>
+                                </StackPanel>
+                            </Button>
+
+                        </StackPanel>
+
+                        <Button Style="{StaticResource menuButton}" VerticalAlignment="Bottom" Click="CloseButton_Click"
+                                    DockPanel.Dock="Bottom" Margin="15 0 15 20">
+                            <StackPanel Orientation="Horizontal">
+                                <icon:PackIconMaterial Kind="Logout" Style="{StaticResource menuButtonIcon}"/>
+                                <TextBlock Text="Exit"/>
+                            </StackPanel>
+                        </Button>
+
+                    </DockPanel>
+                </Border>
+            </Grid>
+
+            <!--Main Section-->
+            <Grid Grid.Column="1" Margin="30 20 20 20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+
+                <!--Top Buttons-->
+                <Button Style="{StaticResource topButton}" Margin="0 0 5 0" HorizontalAlignment="Right" Click="CloseButton_Click">
+                    <icon:PackIconMaterial Kind="Close"/>
+                </Button>
+
+                <Button Style="{StaticResource topButton}" Margin="0 0 55 0" HorizontalAlignment="Right" Click="MaximizeButton_Click">
+                    <icon:PackIconMaterial Kind="WindowMaximize"/>
+                </Button>
+
+                <Button Style="{StaticResource topButton}" Margin="0 0 110 0" HorizontalAlignment="Right" Click="MinimizeButton_Click">
+                    <icon:PackIconMaterial Kind="WindowMinimize"/>
+                </Button>
+
+                <!--Page Title-->
+                <TextBlock Text="Student Records" Grid.Row="1" FontSize="32" FontWeight="SemiBold" Margin="0 20 0 0"
+                           HorizontalAlignment="Left" Foreground="#121518">
+                </TextBlock>
+
+                <!--Add Button-->
+                <Button Style="{StaticResource addButton}" Command="{Binding AddPersonCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <icon:PackIconMaterial Kind="Plus" VerticalAlignment="Center" Width="11" Margin="0 1 8 0" Height="11"/>
+                        <TextBlock Text="Add New Student"/>
+                    </StackPanel>
+                </Button>
+
+                <!--Sparator-->
+                <Separator Height="1" Grid.Row="3" Background="#dae2ea" Margin="0 -1 0 10"/>
+
+                <!--Tab Buttons-->
+                <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0 10 0 0">
+                    <Button Content="Records" Style="{StaticResource tabButton}" BorderBrush="#784ff2"/>
+                </StackPanel>
+
+                <!--Counter Titles-->
+                <TextBlock Text="{Binding CounterText}" Grid.Row="4" FontSize="18" FontWeight="SemiBold"
+                           Foreground="#121518" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+
+                <!--Refresh Student Records button-->
+                <Button Content="Refresh Student Records" Style="{StaticResource addButton}" Width="160"  Height="25" Grid.Row="4" FontSize="13" FontWeight="SemiBold" Margin="0 0 290 0"
+                           HorizontalAlignment="Right" VerticalAlignment="Center" Command="{Binding RefreshStudentRecordsCommand}"/>
+
+
+                <!--Filter Textbox-->
+                <Grid Width="200" HorizontalAlignment="Right" Grid.Row="4" Margin="0 0 75 0">
+                    <TextBlock Margin="15 0" VerticalAlignment="Center" Foreground="#b0b9c6"
+                               IsHitTestVisible="False" Panel.ZIndex="1" Text="Searh in students..."
+                               Visibility="{Binding ElementName=txtFilter,Path=Text.IsEmpty,Converter={StaticResource BoolToVis}}"/>
+                    <TextBox x:Name="txtFilter" Style="{StaticResource textBoxFilter}" Text="{Binding SearchName,UpdateSourceTrigger=PropertyChanged}"/>
+                    <icon:PackIconMaterial Kind="Magnify" Width="15" Height="15" VerticalAlignment="Center"
+                                           Margin="0 0 15 0" Foreground="#b0b9c6" HorizontalAlignment="Right"/>
+                </Grid>
+
+
+                <!--Search Button-->
+                <Button Content="Search" Style="{StaticResource addButton}" Width="60" Height="25" Grid.Row="4" FontSize="13" FontWeight="SemiBold" Margin="770,0,0,13"
+                           HorizontalAlignment="Right" VerticalAlignment="Bottom" Command="{Binding SearchStudentRecordsCommand}"/>
+
+                <!--Members DataGrid-->
+                <DataGrid Name="ItemGrid" Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle2}"
+                          RowStyle="{DynamicResource DataGridRowStyle1}" Grid.Row="5" ItemsSource="{Binding Students}" AutoGenerateColumns="False" IsReadOnly="True">
+                    <DataGrid.Columns>
+
+                        <DataGridTemplateColumn Header="Student" IsReadOnly="True"  Width="60" >
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="{Binding Image}"  Width="25" Height="25" Margin="0 0 10 0"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTextColumn Binding="{Binding FirstName}" Header="First Name" Width="80"/>
+                        <DataGridTextColumn Binding="{Binding LastName}" Header="Last Name" Width="80"/>
+                        <DataGridTextColumn Binding="{Binding Gender}" Header="Gender" Width="60"/>
+                        <DataGridTextColumn Binding="{Binding DateOfBirth}" Header="Date of Birth" Width="110"/>
+                        <DataGridTextColumn Binding="{Binding GPA}" Header="GPA" Width="60"/>
+                        <DataGridTextColumn Binding="{Binding Email}" Header="Email" Width="*"/>
+
+                        <DataGridTemplateColumn Width="100">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Command="{Binding DataContext.EditCommand,ElementName=_window}" CommandParameter="{Binding}" Style="{StaticResource editingButton}">Edit</Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Width="100">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Command="{Binding DataContext.DeleteCommand,ElementName=_window}" CommandParameter="{Binding}" Style="{StaticResource cancellingButton}">Delete</Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+
+
+            </Grid>
+
+        </Grid>
+    </Border>
+
+
+</Window>

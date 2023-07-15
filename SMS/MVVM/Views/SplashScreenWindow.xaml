@@ -1,0 +1,112 @@
+﻿<Window x:Class="SMS.MVVM.Views.SplashScreenWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SMS.MVVM.Views"
+        mc:Ignorable="d"
+        Title="SplashScreenWindow" Height="500" Width="800"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="#FF212021">
+
+
+
+    <Grid>
+
+        <Path Data="M 61.063 58.25 h -0.938 v -30 h 0.634 c 1.055 0 1.53 -0.755 1.059 -1.677 l -3.077 -6.021 c -0.472 -0.922 -1.721 -1.677 -2.775 -1.677 H 40.107 l -7.17 -5.804 v -2.29 c 3.75 2.992 7.5 -6.446 11.25 -3.453 c -3.75 -5.294 -7.5 1.841 -11.25 -3.453 v -0.937 C 32.938 2.422 32.516 2 32 2 s -0.938 0.422 -0.938 0.938 v 10.134 l -7.17 5.804 H 8.035 c -1.055 0 -2.304 0.755 -2.775 1.677 l -3.077 6.021 c -0.472 0.922 0.004 1.677 1.059 1.677 h 0.634 v 30 h -0.938 a 0.94 0.94 0 0 0 -0.938 0.937 v 1.875 a 0.94 0.94 0 0 0 0.938 0.937 h 58.125 a 0.94 0.94 0 0 0 0.937 -0.937 v -1.875 a 0.94 0.94 0 0 0 -0.937 -0.938 M 17 58.25 H 5.75 v -30 h 8.937 c 0.018 0.163 0.05 0.318 0.1 0.459 c 0.245 0.685 0.957 1.416 2.214 1.416 V 58.25 Z m 25 2.594 H 22 v -1.5 h 20 v 1.5 M 26.375 58.25 V 47 h 5.156 v 11.25 h -5.156 m 6.094 0 V 47 h 5.156 v 11.25 h -5.156 m 12.656 0 H 39.5 V 47 h 1.875 v -1.881 s -6.443 -3.893 -8.487 -5.348 a 1.586 1.586 0 0 0 -1.775 0 c -2.044 1.455 -8.487 5.348 -8.487 5.348 V 47 H 24.5 v 11.25 h -5.625 v -30 H 17 c -0.516 0 -0.611 -0.269 -0.214 -0.596 l 14.49 -11.934 c 0.199 -0.163 0.462 -0.245 0.724 -0.245 s 0.524 0.082 0.724 0.245 l 14.49 11.934 c 0.397 0.327 0.302 0.596 -0.214 0.596 h -1.875 v 30 m 13.125 0 H 47 V 30.125 c 1.257 0 1.969 -0.731 2.214 -1.416 c 0.05 -0.141 0.082 -0.296 0.1 -0.459 h 8.937 v 30 Z"
+              Width="400"
+              Height="300"
+              StrokeDashOffset="0"
+              StrokeThickness="5"
+              Stretch="Fill"
+              StrokeStartLineCap="Triangle"
+              StrokeEndLineCap="Triangle"
+              StrokeDashArray="500"
+              x:Name="MyPath"
+              
+              SnapsToDevicePixels="True">
+            <Path.Stroke>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop x:Name="B1" Color="#FF5628E2" Offset="0.0"/>
+                    <GradientStop x:Name="B2" Color="Beige" Offset="1.1"/>
+                </LinearGradientBrush>
+            </Path.Stroke>
+
+            <Path.Triggers>
+                <EventTrigger RoutedEvent="Path.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetName="MyPath"
+                                             Storyboard.TargetProperty="StrokeDashOffset"
+                                             From="500" To="0"
+                                             Duration="0:0:12"
+                                             BeginTime="0:0:0"/>
+                            <DoubleAnimation Storyboard.TargetName="B1"
+                                             Storyboard.TargetProperty="Offset"
+                                             From="0.0" To="1.1"
+                                             AutoReverse="True"
+                                             BeginTime="0:0:0"
+                                             Duration="0:0:5"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Path.Triggers>
+        </Path>
+
+        <Grid>
+
+            <TextBlock Margin="208,413,196,10"
+                       Foreground="#FFFFFF"
+                       FontSize="20"
+                       FontFamily="Candara Light"
+                       x:Name="TxtAnime">
+                <TextBlock.Triggers>
+                    <EventTrigger RoutedEvent="TextBlock.Loaded">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <StringAnimationUsingKeyFrames Storyboard.TargetName="TxtAnime"
+                                                               Storyboard.TargetProperty="Text"
+                                                               BeginTime="0:0:8.5"
+                                                               Duration="0:0:14">
+                                    <DiscreteStringKeyFrame Value="" KeyTime="0:0:0"/>
+                                    <DiscreteStringKeyFrame Value="S" KeyTime="0:0:0.125"/>
+                                    <DiscreteStringKeyFrame Value="S T" KeyTime="0:0:0.25"/>
+                                    <DiscreteStringKeyFrame Value="S T U" KeyTime="0:0:0.375"/>
+                                    <DiscreteStringKeyFrame Value="S T U D" KeyTime="0:0:0.5"/>
+                                    <DiscreteStringKeyFrame Value="S T U D E" KeyTime="0:0:0.625"/>
+                                    <DiscreteStringKeyFrame Value="S T U D E N" KeyTime="0:0:0.75"/>
+                                    <DiscreteStringKeyFrame Value="S T U D E N T" KeyTime="0:0:0.875"/>
+                                    <DiscreteStringKeyFrame Value="S T U D E N T" KeyTime="0:0:1"/>
+                                    <DiscreteStringKeyFrame Value="S T U D E N T - M" KeyTime="0:0:1.125"/>
+                                    <DiscreteStringKeyFrame Value="S T U D E N T - M A" KeyTime="0:0:1.25"/>
+                                    <DiscreteStringKeyFrame Value="S T U D E N T - M A N" KeyTime="0:0:1.375"/>
+                                    <DiscreteStringKeyFrame Value="S T U D E N T - M A N A" KeyTime="0:0:1.5"/>
+                                    <DiscreteStringKeyFrame Value="S T U D E N T - M A N A G" KeyTime="0:0:1.625"/>
+                                    <DiscreteStringKeyFrame Value="S T U D E N T - M A N A G E" KeyTime="0:0:1.75"/>
+                                    <DiscreteStringKeyFrame Value="S T U D E N T - M A N A G E M" KeyTime="0:0:1.875"/>
+                                    <DiscreteStringKeyFrame Value="S T U D E N T - M A N A G E M E" KeyTime="0:0:2"/>
+                                    <DiscreteStringKeyFrame Value="S T U D E N T - M A N A G E M E N" KeyTime="0:0:2.125"/>
+                                    <DiscreteStringKeyFrame Value="S T U D E N T - M A N A G E M E N T" KeyTime="0:0:2.25"/>
+                                    <DiscreteStringKeyFrame Value="S T U D E N T - M A N A G E M E N T - S" KeyTime="0:0:2.375"/>
+                                    <DiscreteStringKeyFrame Value="S T U D E N T - M A N A G E M E N T - S Y" KeyTime="0:0:2.5"/>
+                                    <DiscreteStringKeyFrame Value="S T U D E N T - M A N A G E M E N T - S Y S" KeyTime="0:0:2.625"/>
+                                    <DiscreteStringKeyFrame Value="S T U D E N T - M A N A G E M E N T - S Y S T" KeyTime="0:0:2.75"/>
+                                    <DiscreteStringKeyFrame Value="S T U D E N T - M A N A G E M E N T - S Y S T E" KeyTime="0:0:2.875"/>
+                                    <DiscreteStringKeyFrame Value="S T U D E N T - M A N A G E M E N T - S Y S T E M" KeyTime="0:0:3"/>
+                                </StringAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </TextBlock.Triggers>
+
+            </TextBlock>
+
+        </Grid>
+
+    </Grid>
+
+
+
+</Window>
